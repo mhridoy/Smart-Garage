@@ -71,23 +71,45 @@ def paginator(label, items, items_per_page=10, on_sidebar=True):
     return itertools.islice(enumerate(items), min_index, max_index)
 ####################
 if(menu_id=="Home"):
-    sunset_imgs = [
-    'https://unsplash.com/photos/-IMlv9Jlb24/download?force=true',
-    'https://unsplash.com/photos/ESEnXckWlLY/download?force=true',
-    'https://unsplash.com/photos/mOcdke2ZQoE/download?force=true',
-    'https://unsplash.com/photos/GPPAjJicemU/download?force=true',
-    'https://unsplash.com/photos/JFeOy62yjXk/download?force=true',
-    'https://unsplash.com/photos/kEgJVDkQkbU/download?force=true',
-    'https://unsplash.com/photos/i9Q9bc-WgfE/download?force=true',
-    'https://unsplash.com/photos/tIL1v1jSoaY/download?force=true',
-    'https://unsplash.com/photos/-G3rw6Y02D0/download?force=true',
-    'https://unsplash.com/photos/xP_AGmeEa6s/download?force=true',
-    'https://unsplash.com/photos/4iTVoGYY7bM/download?force=true',
-    'https://unsplash.com/photos/mBQIfKlvowM/download?force=true',
-    'https://unsplash.com/photos/A-11N8ItHZo/download?force=true',
-    'https://unsplash.com/photos/kOqBCFsGTs8/download?force=true',
-    'https://unsplash.com/photos/8DMuvdp-vso/download?force=true'
-]
-    image_iterator = paginator( "",sunset_imgs)
+    ############### Search ##################
+
+    ###################### END SEARCH ###############
+    st.markdown("<h5 style='text-align: center; font-family:  cursive, sans-serif; color: #B3E1E2;'>Your Personal Assistant</h3>", unsafe_allow_html=True)
+    st.markdown("<h6 style='text-align: center; font-family:  cursive, sans-serif; color: black;'>One-stop solution for your services. Order any service, anytime.</h3>", unsafe_allow_html=True)
+        ############### Search ##################
+
+    selected = st.text_input("", "Search...")
+    button_clicked = st.button("Find")   
+    ###################### END SEARCH ###############
+    url =f"https://unsplash.com/napi/search?query=Car Wash&per_page=10&xp="
+    r = requests.get(url)
+
+    data = r.json()
+    url_array=[]
+    name_array=[]
+
+    for item in data['photos']['results']:
+        name = item['user']['name']
+        name_array.append(name)
+        url = item['urls']['full']
+        url_array.append(url)
+#     sunset_imgs = [
+#     'https://unsplash.com/photos/-IMlv9Jlb24/download?force=true',
+#     'https://unsplash.com/photos/ESEnXckWlLY/download?force=true',
+#     'https://unsplash.com/photos/mOcdke2ZQoE/download?force=true',
+#     'https://unsplash.com/photos/GPPAjJicemU/download?force=true',
+#     'https://unsplash.com/photos/JFeOy62yjXk/download?force=true',
+#     'https://unsplash.com/photos/kEgJVDkQkbU/download?force=true',
+#     'https://unsplash.com/photos/i9Q9bc-WgfE/download?force=true',
+#     'https://unsplash.com/photos/tIL1v1jSoaY/download?force=true',
+#     'https://unsplash.com/photos/-G3rw6Y02D0/download?force=true',
+#     'https://unsplash.com/photos/xP_AGmeEa6s/download?force=true',
+#     'https://unsplash.com/photos/4iTVoGYY7bM/download?force=true',
+#     'https://unsplash.com/photos/mBQIfKlvowM/download?force=true',
+#     'https://unsplash.com/photos/A-11N8ItHZo/download?force=true',
+#     'https://unsplash.com/photos/kOqBCFsGTs8/download?force=true',
+#     'https://unsplash.com/photos/8DMuvdp-vso/download?force=true'
+# ]
+    image_iterator = paginator( "",url_array)
     indices_on_page, images_on_page = map(list, zip(*image_iterator))
     st.image(images_on_page, width=100, caption=indices_on_page)
