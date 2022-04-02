@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import streamlit as st
 import hydralit_components as hc
 
@@ -5,6 +6,8 @@ from streamlit_lottie import st_lottie
 from streamlit_lottie import st_lottie_spinner
 import requests 
 import itertools
+import streamlit.components.v1 as components
+
 # Page Config
 st.set_page_config(layout="wide")
 
@@ -78,12 +81,17 @@ if(menu_id=="Home"):
     st.markdown("<h6 style='text-align: center; font-family:  cursive, sans-serif; color: black;'>One-stop solution for your services. Order any service, anytime.</h3>", unsafe_allow_html=True)
         ############### Search ##################
 
-    selected = st.text_input("", "Search...")
+    query = st.text_input("", "Search...")
+    query_manual = "car"
+    print(len(query))
     button_clicked = st.button("Find")   
     ###################### END SEARCH ###############
-    url =f"https://unsplash.com/napi/search?query=Car Wash&per_page=10&xp="
-    r = requests.get(url)
-
+    if(len(query)>9):
+        url =f"https://unsplash.com/napi/search?query={query} Wash&per_page=10&xp="
+        r = requests.get(url)
+    else:
+        url =f"https://unsplash.com/napi/search?query={query_manual}&per_page=10&xp="
+        r = requests.get(url)
     data = r.json()
     url_array=[]
     name_array=[]
@@ -93,6 +101,11 @@ if(menu_id=="Home"):
         name_array.append(name)
         url = item['urls']['full']
         url_array.append(url)
+    imageCarouselComponent = components.declare_component("image-carousel-component", path="frontend/public")
+    selectedImageUrl = imageCarouselComponent(imageUrls=url_array, height=200)
+
+    if selectedImageUrl is not None:
+        st.image(selectedImageUrl)
 #     sunset_imgs = [
 #     'https://unsplash.com/photos/-IMlv9Jlb24/download?force=true',
 #     'https://unsplash.com/photos/ESEnXckWlLY/download?force=true',
@@ -110,6 +123,52 @@ if(menu_id=="Home"):
 #     'https://unsplash.com/photos/kOqBCFsGTs8/download?force=true',
 #     'https://unsplash.com/photos/8DMuvdp-vso/download?force=true'
 # ]
-    image_iterator = paginator( "",url_array)
-    indices_on_page, images_on_page = map(list, zip(*image_iterator))
-    st.image(images_on_page, width=100, caption=indices_on_page)
+    # image_iterator = paginator( "",url_array)
+    # indices_on_page, images_on_page = map(list, zip(*image_iterator))
+    # st.image(images_on_page, width=100, caption=indices_on_page)
+
+st.markdown("<h5 style='text-align: center; font-family:  cursive, sans-serif; color: #B3E1E2;'>-----WHY CHOOSE US------</h5>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; font-family:  cursive, sans-serif; color: black;'>Because we care about your safety..</h3>", unsafe_allow_html=True)
+
+
+### Safety Signs #########
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    
+    st.image("https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/png/usp_mask.png")
+    st.subheader("Ensuring Mask")
+with col2:
+    st.image("https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/png/usp_24_7.png")
+    st.subheader("24/7 Support")
+with col3:
+    st.image("https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/png/usp_sanitized.png")
+    st.subheader("Sanitising Hands & Equipment")
+
+with col4:
+    st.image("https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/png/usp_gloves.png")
+    st.subheader("Ensuring Gloves")
+#########
+
+###### How It Works ##########
+st.markdown("<h5 style='text-align: center; font-family:  cursive, sans-serif; color: #B3E1E2;'>-----HOW IT WORKS------</h5>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; font-family:  cursive, sans-serif; color: black;'>Easiest way to get a service</h3>", unsafe_allow_html=True)
+
+#### Step by step ###
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.video("https://www.youtube.com/watch?v=kdRSObObCy4")
+with col2:
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.text("Select the Service")
+        st.image("")
+    with col2:
+        st.text("Pick your schedule")
+        st.image("")
+    with col3:
+        st.text("Place Your Order & Relax")
+        st.image("")
+############
