@@ -8,7 +8,11 @@ import itertools
 import streamlit.components.v1 as components
 
 # Page Config
-st.set_page_config(layout="wide")
+st.set_page_config(
+        page_title="Smart Garage",
+        page_icon="🚗",
+        layout="wide",
+    )
 
 
 hide_streamlit_style = """
