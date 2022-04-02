@@ -6,7 +6,6 @@ from streamlit_lottie import st_lottie_spinner
 import requests 
 import itertools
 import streamlit.components.v1 as components
-import streamlit_authenticator as stauth
 
 # Page Config
 st.set_page_config(layout="wide")
