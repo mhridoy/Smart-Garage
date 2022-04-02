@@ -2,4 +2,3 @@ hydralit_components
 streamlit
 streamlit_lottie
 requests
-streamlit.components.v1
