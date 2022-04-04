@@ -91,15 +91,40 @@ def paginator(label, items, items_per_page=10, on_sidebar=True):
     max_index = min_index + items_per_page
     return itertools.islice(enumerate(items), min_index, max_index)
 
+##########Booking ###############
+if(menu_id=="Booking"):
+    with st.form("my_form"):
+        st.write("Booking your Slot!")
+        #slider_val = st.slider("Form slider")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.text_input("Your Name:")
+        with col2:
+            st.text_input("Email Address:")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.date_input("Prefered Date: ")
+        with col2:
+            st.text_input("Type your category: ")
+                
+        checkbox_val = st.checkbox("Accept our terms and conditions")
 
+        # Every form must have a submit button.
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            #st.write("slider", slider_val, "checkbox", checkbox_val)
+            st.balloons()
+
+
+############# End Booking #########
 ####################
-if(menu_id=="Available Slots"):
+elif(menu_id=="Available Slots"):
     #st.write("Gotcha")
     st.markdown("<h3 style='text-align: center; font-family:  Consolas, sans-serif; color: #F1330A;'>Available Slots</h3>", unsafe_allow_html=True)
     df = pd.read_csv("slots.csv")
     col1, col2 = st.columns(2)
     with col1 :
-
+        st.bar_chart(df)
         st.write(df)
     with col2 : 
         x1 = np.random.randn(200) - 2
