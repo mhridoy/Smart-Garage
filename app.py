@@ -372,13 +372,15 @@ function showSlides() {
     #### Step by step ###
 
     # st.video("https://www.youtube.com/watch?v=kdRSObObCy4")
-    col1, col2 = st.columns(2)
+    col1, col2 , col3= st.columns(3)
     with col1:
         st.image(
             "https://s3.ap-south-1.amazonaws.com/cdn-shebaxyz/images/v4_uploads/categories/223/thumb_480x320.jpg")
     with col2:
         st.image(
             "https://cdn-shebaxyz.s3.ap-south-1.amazonaws.com/images/bulk/categories/222/web_thumb_480x320.jpg")
+    with col3:
+        st.image("https://s3.ap-south-1.amazonaws.com/cdn-shebaxyz/images/categories_images/thumbs/1644208399_daylongtripneardhaka.jpg")
     col1, col2, col3 = st.columns(3)
 
     with col1:
