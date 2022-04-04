@@ -1,3 +1,4 @@
+from ntpath import join
 import streamlit as st
 import hydralit_components as hc
 import scipy
@@ -169,38 +170,169 @@ elif(menu_id == "Home"):
     url_array = []
     name_array = []
 
-    for item in data['photos']['results']:
-        name = item['user']['name']
-        name_array.append(name)
-        url = item['urls']['full']
-        url_array.append(url)
-    imageCarouselComponent = components.declare_component(
-        "image-carousel-component", path="frontend/public")
-    selectedImageUrl = imageCarouselComponent(imageUrls=url_array, height=200)
+    # for item in data['photos']['results']:
+    #     name = item['user']['name']
+    #     name_array.append(name)
+    #     url = item['urls']['full']
+    #     url_array.append(url)
+    # imageCarouselComponent = components.declare_component(
+    #     "image-carousel-component", path="frontend/public")
+    # selectedImageUrl = imageCarouselComponent(imageUrls=url_array, height=200)
 
-    if selectedImageUrl is not None:
-        st.image(selectedImageUrl)
-#     sunset_imgs = [
-#     'https://unsplash.com/photos/-IMlv9Jlb24/download?force=true',
-#     'https://unsplash.com/photos/ESEnXckWlLY/download?force=true',
-#     'https://unsplash.com/photos/mOcdke2ZQoE/download?force=true',
-#     'https://unsplash.com/photos/GPPAjJicemU/download?force=true',
-#     'https://unsplash.com/photos/JFeOy62yjXk/download?force=true',
-#     'https://unsplash.com/photos/kEgJVDkQkbU/download?force=true',
-#     'https://unsplash.com/photos/i9Q9bc-WgfE/download?force=true',
-#     'https://unsplash.com/photos/tIL1v1jSoaY/download?force=true',
-#     'https://unsplash.com/photos/-G3rw6Y02D0/download?force=true',
-#     'https://unsplash.com/photos/xP_AGmeEa6s/download?force=true',
-#     'https://unsplash.com/photos/4iTVoGYY7bM/download?force=true',
-#     'https://unsplash.com/photos/mBQIfKlvowM/download?force=true',
-#     'https://unsplash.com/photos/A-11N8ItHZo/download?force=true',
-#     'https://unsplash.com/photos/kOqBCFsGTs8/download?force=true',
-#     'https://unsplash.com/photos/8DMuvdp-vso/download?force=true'
-# ]
-    # image_iterator = paginator( "",url_array)
-    # indices_on_page, images_on_page = map(list, zip(*image_iterator))
-    # st.image(images_on_page, width=100, caption=indices_on_page)
+#     if selectedImageUrl is not None:
+#         st.image(selectedImageUrl)
+# #     sunset_imgs = [
+# #     'https://unsplash.com/photos/-IMlv9Jlb24/download?force=true',
+# #     'https://unsplash.com/photos/ESEnXckWlLY/download?force=true',
+# #     'https://unsplash.com/photos/mOcdke2ZQoE/download?force=true',
+# #     'https://unsplash.com/photos/GPPAjJicemU/download?force=true',
+# #     'https://unsplash.com/photos/JFeOy62yjXk/download?force=true',
+# #     'https://unsplash.com/photos/kEgJVDkQkbU/download?force=true',
+# #     'https://unsplash.com/photos/i9Q9bc-WgfE/download?force=true',
+# #     'https://unsplash.com/photos/tIL1v1jSoaY/download?force=true',
+# #     'https://unsplash.com/photos/-G3rw6Y02D0/download?force=true',
+# #     'https://unsplash.com/photos/xP_AGmeEa6s/download?force=true',
+# #     'https://unsplash.com/photos/4iTVoGYY7bM/download?force=true',
+# #     'https://unsplash.com/photos/mBQIfKlvowM/download?force=true',
+# #     'https://unsplash.com/photos/A-11N8ItHZo/download?force=true',
+# #     'https://unsplash.com/photos/kOqBCFsGTs8/download?force=true',
+# #     'https://unsplash.com/photos/8DMuvdp-vso/download?force=true'
+# # ]
+#     # image_iterator = paginator( "",url_array)
+#     # indices_on_page, images_on_page = map(list, zip(*image_iterator))
+#     # st.image(images_on_page, width=100, caption=indices_on_page)
+    slider_images ="""
+    <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
 
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+</style>
+</head>
+<body>
+
+
+
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max" style="width:100%">
+  <div class="text">Car Repair</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="https://wallpaperaccess.com/full/348112.jpg" style="width:100%">
+  <div class="text">Car Repair</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="https://www.itl.cat/pngfile/big/304-3046191_images-of-old-car-antique-car.jpg" style="width:100%">
+  <div class="text">Car Repair</div>
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script>
+
+</body>
+</html> 
+
+    
+    
+    """
+    components.html(slider_images,height=600)
     st.markdown("<h3 style='text-align: center; font-family:  Consolas, sans-serif; color: #ff4b4b;'>WHY CHOOSE US</h3>", unsafe_allow_html=True)
     st.markdown("<h4 style='text-align: center; font-family:  cursive, sans-serif; color: black;'>Because we care about your safety..</h4>", unsafe_allow_html=True)
 
