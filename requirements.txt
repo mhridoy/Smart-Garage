@@ -2,3 +2,8 @@ hydralit_components
 streamlit
 streamlit_lottie
 requests
+scipy
+pandas
+matplotlib
+plotly
+numpy
