@@ -46,7 +46,7 @@ menu_data = [
     # {'id':'Copy','icon':"🐙",'label':"Copy"},
     {'icon': "far fa-chart-bar", 'label': "Available Slots"},  # no tooltip message
     {'icon': "far fa-address-book", 'label': "Booking"},
-    {'id': ' Crazy return value 💀', 'icon': "💼", 'label': "Career"},
+    {'icon': "🔔", 'label': "Notifications"},
     {'icon': "🔒", 'label': "Login"},
     # can add a tooltip message
     {'icon': "📝", 'label': "Registration", 'ttip': "I'm the Dashboard tooltip!"},
