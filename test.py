@@ -26,6 +26,17 @@ directions =[
             "makes 4 servings.",
         ]
 
+def prepare_frame(self, recipe, chef_name):
+        frame_path = self.chef_frames[chef_name.lower()]
+        food_logo = generate_food_with_logo_image(frame_path, self.logo_frame, recipe["image"])
+        frame = generate_recipe_image(
+            recipe,
+            self.main_frame,
+            food_logo,
+            self.fonts,
+            bg_color="#ffffff"
+        )
+        return frame
 def generate_frame(self, recipe, chef_name):
         return self.prepare_frame(recipe, chef_name)
 
