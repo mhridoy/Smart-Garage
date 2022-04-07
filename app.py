@@ -27,7 +27,7 @@ hide_streamlit_style = """
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
+st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 # Animation
 # Function of Lottie URL
 
